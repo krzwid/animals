@@ -1,21 +1,31 @@
 package agh.cs.lab1;
 import agh.cs.lab2.MoveDirection;
+import agh.cs.lab2.Vector2d;
 
 import java.util.Objects;
 import java.util.stream.Stream;
 
-
+// TODO
+//Sprawdź czy zwierzęta poruszają się poprawnie dla ciągu: f b r l f f r r f f f f f f f f.
 
 public class World {
     public static void main(String[] args) {
         System.out.println("Start");
 
-        /*Direction[] directions = Stream.of(args)
+        MoveDirection[] directions = new OptionsParser().parse(args);
+        IWorldMap map = new RectangularMap(10, 5);
+        map.place(new Animal(map));
+        map.place(new Animal(map, new Vector2d(3,4)));
+        map.place(new Animal(map, new Vector2d(5,4)));
+        map.run(directions);
+        System.out.println(map.toString());
+/*
+        Direction[] directions = Stream.of(args)
                 .map(Direction::changeDirection)
                 .filter(Objects::nonNull)
                 .toArray(Direction[]::new);
 
-        run(directions);*/
+        run(directions);
         Animal animal = new Animal();
         System.out.println(animal.toString());
         animal.move(MoveDirection.RIGHT);
@@ -30,7 +40,7 @@ public class World {
             animal.move(moveDirection);
         }
         System.out.println(animal.toString());
-
+*/
         System.out.println("Stop");
 
     }

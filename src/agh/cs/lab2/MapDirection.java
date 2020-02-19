@@ -13,22 +13,22 @@ public enum MapDirection {
         return null;
     }
 
-    public String next() {
+    public MapDirection next() {
         switch (this) {
-            case SOUTH: return WEST.toString();
-            case NORTH: return EAST.toString();
-            case WEST: return NORTH.toString();
-            case EAST: return SOUTH.toString();
+            case SOUTH: return WEST;
+            case NORTH: return EAST;
+            case WEST: return NORTH;
+            case EAST: return SOUTH;
         }
         return null;
     }
 
-    public String previous() {
+    public MapDirection previous() {
         switch (this) {
-            case SOUTH: return EAST.toString();
-            case NORTH: return WEST.toString();
-            case WEST: return SOUTH.toString();
-            case EAST: return NORTH.toString();
+            case SOUTH: return EAST;
+            case NORTH: return WEST;
+            case WEST: return SOUTH;
+            case EAST: return NORTH;
         }
         return null;
     }
