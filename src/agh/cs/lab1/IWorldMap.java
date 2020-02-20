@@ -1,6 +1,5 @@
 package agh.cs.lab1;
 
-import agh.cs.lab1.Animal;
 import agh.cs.lab2.MoveDirection;
 import agh.cs.lab2.Vector2d;
 

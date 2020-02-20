@@ -9,6 +9,8 @@ public enum MoveDirection {
         switch (direction){
             case "f" : return MoveDirection.FORWARD;
             case "b" : return MoveDirection.BACKWARD;
+            case "l" : return MoveDirection.LEFT;
+            case "r" : return MoveDirection.RIGHT;
             default: return null;
         }
     }

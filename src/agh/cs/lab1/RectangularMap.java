@@ -5,13 +5,11 @@ import agh.cs.lab2.Vector2d;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 public class RectangularMap implements IWorldMap {
     int height;
     int width;
     List<Animal> animals = new ArrayList<>();
-
 
     public RectangularMap (int height, int width) {
         this.height = height;
@@ -20,7 +18,7 @@ public class RectangularMap implements IWorldMap {
 
     @Override
     public boolean canMoveTo(Vector2d position) {
-        if (width < position.x || height < position.y) {
+        if(position.follows(new Vector2d(width, height)) || position.precedes(new Vector2d(0,0))){
             return false;
         }
         for (Animal animal : animals) {
@@ -44,8 +42,8 @@ public class RectangularMap implements IWorldMap {
     public void run(MoveDirection[] directions) {
         int i = 0;
         for (MoveDirection direction : directions){
-            animals.get(i%animals.size()).move(direction);
-            i++;
+            animals.get(i).move(direction);
+            i = (i+1)%animals.size();
         }
     }
 
@@ -59,16 +57,21 @@ public class RectangularMap implements IWorldMap {
         return false;
     }
 
-    @Override
     public Object objectAt(Vector2d position) {
+        for (Animal animal : animals) {
+            if (position.equals(animal.position)) {
+                return animal;
+            }
+        }
         return null;
     }
 
     public String toString(){
         MapVisualizer visualizer = new MapVisualizer(this);
         Vector2d lowerLeft = new Vector2d(0,0);
-        Vector2d upperRight = new Vector2d(width, height);
+        Vector2d upperRight = new Vector2d(width-1, height-1);
         return visualizer.draw(lowerLeft, upperRight);
     }
 }
+
 
