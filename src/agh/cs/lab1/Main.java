@@ -1,24 +1,32 @@
 package agh.cs.lab1;
+import agh.cs.Animation.BasicSwing;
 import agh.cs.lab2.MoveDirection;
 import agh.cs.lab2.Vector2d;
 import org.junit.Assert;
 
+import java.awt.*;
+import java.io.IOException;
 import java.util.Objects;
 import java.util.stream.Stream;
 
 // TODO
-//Sprawdź czy zwierzęta poruszają się poprawnie dla ciągu: f b r l f f r r f f f f f f f f.
+// Ustawić odstępy miedzy literami na mapie
 
-public class World {
+public class Main {
     public static void main(String[] args) {
+
         System.out.println("Start");
 
         MoveDirection[] directions = new OptionsParser().parse(args);
-        IWorldMap map = new RectangularMap(10, 5);
+        IWorldMap map = new RectangularMap(15, 15);
         map.place(new Animal(map));
         map.place(new Animal(map,new Vector2d(3,4)));
-        map.run(directions);
+        map.place(new Animal(map,new Vector2d(1,5)));
+        map.place(new Animal(map,new Vector2d(4,8)));
+        new BasicSwing(args, map);
+//        map.run(directions);
         System.out.println(map.toString());
+
 
 
 /*

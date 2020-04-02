@@ -9,9 +9,9 @@ import agh.cs.lab2.Vector2d;
  * @author apohllo
  */
 public class MapVisualizer {
-    private static final String EMPTY_CELL = " ";
-    private static final String FRAME_SEGMENT = "-";
-    private static final String CELL_SEGMENT = "|";
+    private static final String EMPTY_CELL = "  ";
+    private static final String FRAME_SEGMENT = " -";
+    private static final String CELL_SEGMENT = " |";
     private IWorldMap map;
 
     /**
@@ -63,9 +63,9 @@ public class MapVisualizer {
 
     private String drawHeader(Vector2d lowerLeft, Vector2d upperRight) {
         StringBuilder builder = new StringBuilder();
-        builder.append(" y\\x ");
+        builder.append(" y\\x  ");
         for (int j = lowerLeft.x; j < upperRight.x + 1; j++) {
-            builder.append(String.format("%2d", j));
+            builder.append(String.format(" %2d ", j));
         }
         builder.append(System.lineSeparator());
         return builder.toString();
@@ -76,7 +76,9 @@ public class MapVisualizer {
         if (this.map.isOccupied(currentPosition)) {
             Object object = this.map.objectAt(currentPosition);
             if (object != null) {
-                result = object.toString();
+                String help = object.toString();
+                result = String.format(" %s", help);
+//                result = object.toString();
             } else {
                 result = EMPTY_CELL;
             }
