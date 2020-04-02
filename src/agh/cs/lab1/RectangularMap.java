@@ -18,7 +18,7 @@ public class RectangularMap implements IWorldMap {
 
     @Override
     public boolean canMoveTo(Vector2d position) {
-        if(position.follows(new Vector2d(width, height)) || position.precedes(new Vector2d(0,0))){
+        if(!position.follows(new Vector2d(0, 0)) || !position.precedes(new Vector2d(width,height))){
             return false;
         }
         for (Animal animal : animals) {
@@ -50,7 +50,7 @@ public class RectangularMap implements IWorldMap {
     @Override
     public boolean isOccupied(Vector2d position) {
         for (Animal animal : animals) {
-            if (animal.position.x == position.x && animal.position.y == position.y) {
+            if (animal.position.equals(position)) {
                 return true;
             }
         }

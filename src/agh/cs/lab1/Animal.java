@@ -4,6 +4,8 @@ import agh.cs.lab2.MapDirection;
 import agh.cs.lab2.MoveDirection;
 import agh.cs.lab2.Vector2d;
 
+import java.util.Objects;
+
 import static agh.cs.lab2.MapDirection.NORTH;
 
 public class Animal {
@@ -21,42 +23,37 @@ public class Animal {
 
     public Animal(IWorldMap map, Vector2d initialPosition) {
         this.map = map;
-        if (!this.map.isOccupied(initialPosition)) {
-            this.position = initialPosition;
-        }
+        this.position = initialPosition;
     }
 
     public Vector2d getPosition() {
         return new Vector2d(this.position.x, this.position.y);
     }
 
-    public String toString() {
-        switch (this.direction) {
-            case NORTH:
-                return "N";
-            case WEST:
-                return "W";
-            case SOUTH:
-                return "S";
-            case EAST:
-                return "E";
-        }
-        return null;
+    public String toString(){
+        return this.direction.toAbbr();
     }
 
     public void move(MoveDirection dir) {
-        if (dir.equals(MoveDirection.LEFT)) {
-            this.direction = this.direction.previous();
-        }
-
-        if (dir.equals(MoveDirection.RIGHT)) {
-            this.direction = this.direction.next();
-        }
-        Vector2d destination = this.position.add(direction.toUnitVector());
-
-        if (this.map.canMoveTo(destination)) {
-            this.position = destination;
+        switch (dir) {
+            case LEFT:
+                this.direction = this.direction.previous();
+                break;
+            case RIGHT:
+                this.direction = this.direction.next();
+                break;
+            case FORWARD:
+                Vector2d place = this.position.add(Objects.requireNonNull(this.direction.toUnitVector()));
+                if (map.canMoveTo(place)) {
+                    this.position = place;
+                }
+                break;
+            case BACKWARD:
+                Vector2d place2 = this.position.subtract(Objects.requireNonNull(this.direction.toUnitVector()));
+                if (map.canMoveTo(place2)) {
+                    this.position = place2;
+                }
+                break;
         }
     }
-
 }

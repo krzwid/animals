@@ -1,6 +1,7 @@
 package agh.cs.lab1;
 import agh.cs.lab2.MoveDirection;
 import agh.cs.lab2.Vector2d;
+import org.junit.Assert;
 
 import java.util.Objects;
 import java.util.stream.Stream;
@@ -15,10 +16,11 @@ public class World {
         MoveDirection[] directions = new OptionsParser().parse(args);
         IWorldMap map = new RectangularMap(10, 5);
         map.place(new Animal(map));
-        map.place(new Animal(map, new Vector2d(3,4)));
-        map.place(new Animal(map, new Vector2d(5,4)));
+        map.place(new Animal(map,new Vector2d(3,4)));
         map.run(directions);
         System.out.println(map.toString());
+
+
 /*
         Direction[] directions = Stream.of(args)
                 .map(Direction::changeDirection)

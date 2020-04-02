@@ -33,6 +33,20 @@ public enum MapDirection {
         return null;
     }
 
+    public String toAbbr() {
+        switch (this) {
+            case NORTH:
+                return "N";
+            case WEST:
+                return "W";
+            case SOUTH:
+                return "S";
+            case EAST:
+                return "E";
+        }
+        return null;
+    }
+
     public Vector2d toUnitVector() {
         switch (this) {
             case EAST: return new Vector2d(1,0);
