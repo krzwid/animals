@@ -16,16 +16,16 @@ public class AnimalTest {
         IWorldMap map = new RectangularMap(4,4);
         Vector2d position = new Vector2d(2,2);
         Animal animal = new Animal(map, position);
-        Assert.assertEquals(MapDirection.NORTH, animal.direction);
+        Assert.assertEquals(MapDirection.NORTH, animal.getDirection());
 
         animal.move(MoveDirection.RIGHT);
-        Assert.assertEquals(MapDirection.EAST, animal.direction);
+        Assert.assertEquals(MapDirection.EAST, animal.getDirection());
 
         animal.move(MoveDirection.LEFT);
-        Assert.assertEquals(MapDirection.NORTH, animal.direction);
+        Assert.assertEquals(MapDirection.NORTH, animal.getDirection());
 
         animal.move(MoveDirection.LEFT);
-        Assert.assertEquals(MapDirection.WEST, animal.direction);
+        Assert.assertEquals(MapDirection.WEST, animal.getDirection());
 
         animal.move(MoveDirection.FORWARD);
         Assert.assertEquals(1, animal.position.x);
@@ -47,10 +47,12 @@ public class AnimalTest {
 
         animal.move(MoveDirection.FORWARD);
         Assert.assertEquals(0, animal.position.x);
-        Assert.assertEquals(4, animal.position.y);
+        Assert.assertEquals(3, animal.position.y);
+        Assert.assertEquals(MapDirection.NORTH, animal.getDirection());
 
-        animal.move(MoveDirection.FORWARD);
+        animal.move(MoveDirection.BACKWARD);
         Assert.assertEquals(0, animal.position.x);
-        Assert.assertEquals(4, animal.position.y);
+        Assert.assertEquals(2, animal.position.y);
+        Assert.assertEquals(MapDirection.NORTH, animal.getDirection());
     }
 }

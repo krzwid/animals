@@ -11,8 +11,8 @@ public class Vector2dTest {
         Vector2d v1 = new Vector2d (1,1);
         Vector2d v2 = new Vector2d (1,1);
         Vector2d v3 = new Vector2d (1,4);
-        Assert.assertTrue(v1.equals(v2));
-        Assert.assertFalse(v1.equals(v3));
+        Assert.assertEquals(v1, v2);
+        Assert.assertNotEquals(v1, v3);
     }
 
     @Test
@@ -29,8 +29,8 @@ public class Vector2dTest {
         Vector2d v2 = new Vector2d (1,1);
         Vector2d v3 = new Vector2d (1,4);
         Vector2d v4 = new Vector2d (-1,4);
-        Assert.assertTrue(v1.precedes(v2));
-        Assert.assertTrue(v1.precedes(v3));
+        Assert.assertFalse(v1.precedes(v2));
+        Assert.assertFalse(v1.precedes(v3));
         Assert.assertFalse(v1.precedes(v4));
     }
 

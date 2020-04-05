@@ -11,21 +11,17 @@ import static java.lang.StrictMath.sqrt;
 
 public class GrassField implements IWorldMap {
     int grassNumber;
-    int height;
-    int width;
     List<Animal> animals = new ArrayList<>();
     List<Grass> grassList = new ArrayList<>();
 
-    public GrassField (int height, int width, int grassNumber) {
-        this.height = height;
-        this.width = width;
+    public GrassField (int grassNumber) {
         this.grassNumber = grassNumber;
         int tries = 0;
         for(int i=0; i<grassNumber; i++){
 
             boolean placed = false;
             while(!placed) {
-                if (++tries > 1000) {
+                if (tries++ > 1000) {
                     break;
                 }
                 Random a = new Random();
@@ -47,9 +43,6 @@ public class GrassField implements IWorldMap {
 
     @Override
     public boolean canMoveTo(Vector2d position) {
-        if(!position.follows(new Vector2d(0, 0)) || !position.precedes(new Vector2d(width,height))){
-            return false;
-        }
         for (Animal animal : animals) {
             if (animal.position.equals(position)) {
                 return false;
@@ -93,6 +86,43 @@ public class GrassField implements IWorldMap {
 
     @Override
     public Object objectAt(Vector2d position) {
+        for (Animal animal : animals) {
+            if (position.equals(animal.position)) {
+                return animal;
+            }
+        }
+        for (Grass grass: grassList) {
+            if (position.equals(grass.position)){
+                return grass;
+            }
+        }
         return null;
+    }
+
+    public String toString() {
+        MapVisualizer visualizer = new MapVisualizer(this);
+        Vector2d lowerLeft = lowerLeft(animals);
+        Vector2d upperRight = upperRight(animals);
+        return visualizer.draw(lowerLeft,upperRight);
+    }
+
+    Vector2d upperRight(List<Animal> animals){
+        int maxX = animals.get(0).position.x;
+        int maxY = animals.get(0).position.y;
+        for (Animal animal: animals){
+            if (animal.position.x > maxX) maxX = animal.position.x;
+            if (animal.position.y > maxY) maxY = animal.position.y;
+        }
+        return new Vector2d(maxX, maxY);
+    }
+
+    Vector2d lowerLeft(List<Animal> animals) {
+        int minX = animals.get(0).position.x;
+        int minY = animals.get(0).position.y;
+        for (Animal animal: animals) {
+            if (animal.position.x < minX) minX = animal.position.x;
+            if (animal.position.y < minY) minY = animal.position.y;
+        }
+        return new Vector2d(minX, minY);
     }
 }

@@ -4,21 +4,27 @@ import agh.cs.lab2.MapDirection;
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.util.Map;
+
 public class MapDirectionTest {
+    MapDirection south = MapDirection.SOUTH;
+    MapDirection north = MapDirection.NORTH;
+    MapDirection east = MapDirection.EAST;
+    MapDirection west = MapDirection.WEST;
 
     @Test
     public void next() {
-        Assert.assertEquals("Zachód", MapDirection.SOUTH.next());
-        Assert.assertEquals("Wschód", MapDirection.NORTH.next());
-        Assert.assertEquals("Północ", MapDirection.WEST.next());
-        Assert.assertEquals("Południe", MapDirection.EAST.next());
+        Assert.assertEquals(west, MapDirection.SOUTH.next());
+        Assert.assertEquals(east, MapDirection.NORTH.next());
+        Assert.assertEquals(north, MapDirection.WEST.next());
+        Assert.assertEquals(south, MapDirection.EAST.next());
     }
 
     @Test
     public void previous() {
-        Assert.assertEquals("Wschód", MapDirection.SOUTH.previous());
-        Assert.assertEquals("Zachód", MapDirection.NORTH.previous());
-        Assert.assertEquals("Południe", MapDirection.WEST.previous());
-        Assert.assertEquals("Północ", MapDirection.EAST.previous());
+        Assert.assertEquals(east, MapDirection.SOUTH.previous());
+        Assert.assertEquals(west, MapDirection.NORTH.previous());
+        Assert.assertEquals(south, MapDirection.WEST.previous());
+        Assert.assertEquals(north, MapDirection.EAST.previous());
     }
 }

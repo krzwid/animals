@@ -1,8 +1,5 @@
 package agh.cs.Animation;
 
-import agh.cs.lab1.IWorldMap;
-import agh.cs.lab2.MoveDirection;
-
 import javax.swing.*;
 
 public class Options extends JPanel{
@@ -22,12 +19,10 @@ public class Options extends JPanel{
 
         add(playAll);
         playAll.addActionListener(e -> {
-
             if (activePlayAll){
                 map.playAll();
                 activePlayAll = false;
             }
-
         });
     }
 }

@@ -1,58 +1,44 @@
 package agh.cs.lab1;
-import agh.cs.Animation.BasicSwing;
+import agh.cs.Animation.MainApplication;
 import agh.cs.lab2.MoveDirection;
 import agh.cs.lab2.Vector2d;
-import org.junit.Assert;
-
-import java.awt.*;
-import java.io.IOException;
-import java.util.Objects;
-import java.util.stream.Stream;
-
-// TODO
-// Ustawić odstępy miedzy literami na mapie
 
 public class Main {
     public static void main(String[] args) {
-
         System.out.println("Start");
 
+        //using GrassFieldMap
+        MoveDirection[] directions = new OptionsParser().parse(args);
+        IWorldMap map = new GrassField(10);
+        map.place(new Animal(map));
+        map.place(new Animal(map,new Vector2d(3,4)));
+        map.place(new Animal(map,new Vector2d(1,5)));
+        map.place(new Animal(map,new Vector2d(10,10)));
+        System.out.println(map.toString());
+        map.run(directions);
+        System.out.println(map.toString());
+
+        //launching window application
+        new MainApplication(args, map);
+        System.out.println("Stop");
+
+
+/*
+        //using RectangularMap (without grass)
         MoveDirection[] directions = new OptionsParser().parse(args);
         IWorldMap map = new RectangularMap(15, 15);
         map.place(new Animal(map));
         map.place(new Animal(map,new Vector2d(3,4)));
         map.place(new Animal(map,new Vector2d(1,5)));
-        map.place(new Animal(map,new Vector2d(4,8)));
-        new BasicSwing(args, map);
-//        map.run(directions);
+        map.place(new Animal(map,new Vector2d(10,8)));
+        System.out.println(map.toString());
+        map.run(directions);
         System.out.println(map.toString());
 
-
-
-/*
-        Direction[] directions = Stream.of(args)
-                .map(Direction::changeDirection)
-                .filter(Objects::nonNull)
-                .toArray(Direction[]::new);
-
-        run(directions);
-        Animal animal = new Animal();
-        System.out.println(animal.toString());
-        animal.move(MoveDirection.RIGHT);
-        animal.move(MoveDirection.FORWARD);
-        animal.move(MoveDirection.FORWARD);
-        animal.move(MoveDirection.FORWARD);
-        System.out.println(animal.toString());
-
-        MoveDirection[] moveDirections = OptionsParser.parse(args);
-
-        for (MoveDirection moveDirection: moveDirections){
-            animal.move(moveDirection);
-        }
-        System.out.println(animal.toString());
-*/
+        //launching window application
+        new MainApplication(args, map);
         System.out.println("Stop");
-
+*/
     }
 
     public static void run(Direction[] directions) {
@@ -74,5 +60,3 @@ public class Main {
         }
     }
 }
-
-

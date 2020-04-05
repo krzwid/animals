@@ -7,11 +7,11 @@ import java.awt.*;
 
 import static java.awt.BorderLayout.CENTER;
 
-public class BasicSwing extends JFrame {
+public class MainApplication extends JFrame {
     JPanel panel = new JPanel();
 
-    public BasicSwing(String[] args, IWorldMap map) {
-        super("Basic Swing App");
+    public MainApplication(String[] args, IWorldMap map) {
+        super("Animals");
         setSize(700, 700);
         Dimension size = new Dimension(300, 300);
         setMinimumSize(size);
@@ -23,10 +23,7 @@ public class BasicSwing extends JFrame {
         Options options = new Options(mapPanel);
         this.add(options, BorderLayout.NORTH);
 
-
         add(mapPanel, CENTER);
         setVisible(true);
     }
-
-
 }

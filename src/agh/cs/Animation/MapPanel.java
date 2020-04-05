@@ -14,11 +14,12 @@ public class MapPanel extends JPanel {
     IWorldMap map;
     MoveDirection[] directions;
     JTextArea animalMap;
+
     public MapPanel(String[] args, IWorldMap map){
         this.map = map;
         this.directions = new OptionsParser().parse(args);
         finalMap = map.toString();
-        this.animalMap = new JTextArea(finalMap, height+20, width+30);
+        this.animalMap = new JTextArea(finalMap, height, width+10);
         Font font = new Font("Consolas", Font.BOLD, 18);
         this.animalMap.setFont(font);
         add(animalMap);
