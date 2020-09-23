@@ -8,10 +8,10 @@ import java.util.Objects;
 
 import static agh.cs.lab2.MapDirection.NORTH;
 
-public class Animal {
+public class Animal implements IMapElement{
     public MapDirection direction = NORTH;
     public Vector2d position = new Vector2d(0, 0);
-    private IWorldMap map;
+    private final IWorldMap map;
 
     public MapDirection getDirection() {
         return direction;
@@ -26,10 +26,12 @@ public class Animal {
         this.position = initialPosition;
     }
 
+    @Override
     public Vector2d getPosition() {
         return new Vector2d(this.position.x, this.position.y);
     }
 
+    @Override
     public String toString(){
         return this.direction.toAbbr();
     }

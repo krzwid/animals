@@ -8,12 +8,12 @@ public class Main {
         System.out.println("Start");
 
         //using GrassFieldMap
-        MoveDirection[] directions = new OptionsParser().parse(args);
+        MoveDirection[] directions = OptionsParser.parse(args);
         IWorldMap map = new GrassField(10);
         map.place(new Animal(map));
-        map.place(new Animal(map,new Vector2d(3,4)));
-        map.place(new Animal(map,new Vector2d(1,5)));
-        map.place(new Animal(map,new Vector2d(10,10)));
+        map.place(new Animal(map,new Vector2d(1,1)));
+        map.place(new Animal(map,new Vector2d(3,3)));
+        map.place(new Animal(map,new Vector2d(5,5)));
         System.out.println(map.toString());
         map.run(directions);
         System.out.println(map.toString());

@@ -6,10 +6,9 @@ import agh.cs.lab2.Vector2d;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RectangularMap implements IWorldMap {
+public class RectangularMap extends AbstractWorldMap {
     int height;
     int width;
-    List<Animal> animals = new ArrayList<>();
 
     public RectangularMap (int height, int width) {
         this.height = height;
@@ -27,24 +26,6 @@ public class RectangularMap implements IWorldMap {
             }
         }
         return true;
-    }
-
-    @Override
-    public boolean place(Animal animal) {
-        if(isOccupied(animal.position)){
-            return false;
-        }
-        animals.add(animal);
-        return true;
-    }
-
-    @Override
-    public void run(MoveDirection[] directions) {
-        int i = 0;
-        for (MoveDirection direction : directions){
-            animals.get(i).move(direction);
-            i = (i+1)%animals.size();
-        }
     }
 
     @Override

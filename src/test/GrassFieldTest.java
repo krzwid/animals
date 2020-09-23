@@ -9,6 +9,7 @@ import agh.cs.lab2.Vector2d;
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.sql.SQLOutput;
 import java.util.Objects;
 import java.util.stream.Stream;
 
@@ -50,11 +51,13 @@ public class GrassFieldTest {
 
     @Test
     public void run() {
+        grassField.place(animal1);
+        grassField.place(animal2);
         grassField.run(directions);
-        Assert.assertEquals(MapDirection.WEST, animal1.getDirection());
-        Assert.assertEquals(MapDirection.EAST, animal2.getDirection());
-        Vector2d animal1position = new Vector2d(0,1);
-        Vector2d animal2position = new Vector2d(3,3);
+        Assert.assertEquals(MapDirection.EAST, animal1.getDirection());
+        Assert.assertEquals(MapDirection.WEST, animal2.getDirection());
+        Vector2d animal1position = new Vector2d(3,3);
+        Vector2d animal2position = new Vector2d(0,1);
 
         Assert.assertEquals(animal1position, animal1.getPosition());
         Assert.assertEquals(animal2position, animal2.getPosition());

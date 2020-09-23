@@ -1,16 +1,23 @@
 package agh.cs.lab2;
 
 public enum MapDirection {
-    NORTH, SOUTH, WEST, EAST;
+    NORTH("Północ", "N", new Vector2d(0,1)),
+    SOUTH("Południe", "S", new Vector2d(0,-1)),
+    WEST("Zachód", "W", new Vector2d(-1,0)),
+    EAST("Wschód", "E", new Vector2d(1,0));
+
+    public final String name;
+    public final String shortname;
+    public final Vector2d vector;
+
+    MapDirection(String s, String s1, Vector2d vector) {
+        name = s;
+        shortname=s1;
+        this.vector = vector;
+    }
 
     public String toString() {
-        switch(this) {
-            case EAST: return "Wschód";
-            case WEST: return  "Zachód";
-            case NORTH: return "Północ";
-            case SOUTH: return "Południe";
-        }
-        return null;
+        return name;
     }
 
     public MapDirection next() {
