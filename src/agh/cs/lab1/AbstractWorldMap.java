@@ -3,27 +3,38 @@ package agh.cs.lab1;
 import agh.cs.lab2.MoveDirection;
 import agh.cs.lab2.Vector2d;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
-public abstract class AbstractWorldMap implements IWorldMap {
-    List<Animal> animals = new ArrayList<>();
+public abstract class AbstractWorldMap implements IWorldMap, IPositionChangeObserver {
+    Map<Vector2d,Animal> animals = new LinkedHashMap<>();
 
     @Override
     public boolean place(Animal animal) {
         if (isOccupied(animal.position)) {
-            return false;
+            throw new IllegalArgumentException("Cannot place animal on " + animal.position + " position");
         }
-        animals.add(animal);
+        animals.put(animal.position, animal);
+        animal.addObserver(this);
         return true;
     }
 
     @Override
+    public void positionChanged(Vector2d oldPosition, Vector2d newPosition) {
+        Animal animal = this.animals.remove(oldPosition);
+        this.animals.put(newPosition, animal);
+    }
+
+    @Override
     public void run(MoveDirection[] directions) {
-        int i = 0;
-        for (MoveDirection direction : directions) {
-            animals.get(i).move(direction);
-            i = (i + 1) % animals.size();
+        try {
+            Animal[] animalsTab = this.animals.values().toArray(new Animal[0]);
+            for(int i = 0; i < directions.length; i++) {
+                animalsTab[i % animalsTab.length].move(directions[i]);
+            }
+        }
+        catch (IllegalArgumentException argument) {
+            System.out.println(argument+ "is not legal move specification");
         }
     }
 
@@ -34,22 +45,32 @@ public abstract class AbstractWorldMap implements IWorldMap {
         return visualizer.draw(lowerLeft, upperRight);
     }
 
-    Vector2d upperRight(List<Animal> animals) {
-        int maxX = animals.get(0).position.x;
-        int maxY = animals.get(0).position.y;
-        for (Animal animal : animals) {
-            if (animal.position.x > maxX) maxX = animal.position.x;
-            if (animal.position.y > maxY) maxY = animal.position.y;
+    Vector2d upperRight(Map<Vector2d, Animal> animals) {
+        int maxX = 0;
+        int maxY = 0;
+
+        for (Map.Entry<Vector2d, Animal> animal : animals.entrySet()) {
+            if (animal.getKey().x > maxX) {
+                maxX = animal.getKey().x;
+            }
+            if (animal.getKey().y > maxY) {
+                maxY = animal.getKey().y;
+            }
         }
         return new Vector2d(maxX, maxY);
     }
 
-    Vector2d lowerLeft(List<Animal> animals) {
-        int minX = animals.get(0).position.x;
-        int minY = animals.get(0).position.y;
-        for (Animal animal : animals) {
-            if (animal.position.x < minX) minX = animal.position.x;
-            if (animal.position.y < minY) minY = animal.position.y;
+    Vector2d lowerLeft(Map<Vector2d, Animal> animals) {
+        int minX = Integer.MAX_VALUE;
+        int minY = Integer.MAX_VALUE;
+
+        for (Map.Entry<Vector2d, Animal> animal : animals.entrySet()) {
+            if (animal.getKey().x < minX) {
+                minX = animal.getKey().x;
+            }
+            if (animal.getKey().y < minY) {
+                minY = animal.getKey().y;
+            }
         }
         return new Vector2d(minX, minY);
     }

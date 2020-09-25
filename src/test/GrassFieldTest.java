@@ -8,8 +8,6 @@ import agh.cs.lab2.MoveDirection;
 import agh.cs.lab2.Vector2d;
 import org.junit.Assert;
 import org.junit.Test;
-
-import java.sql.SQLOutput;
 import java.util.Objects;
 import java.util.stream.Stream;
 

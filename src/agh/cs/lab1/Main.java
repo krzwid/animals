@@ -1,4 +1,5 @@
 package agh.cs.lab1;
+
 import agh.cs.Animation.MainApplication;
 import agh.cs.lab2.MoveDirection;
 import agh.cs.lab2.Vector2d;
@@ -8,20 +9,30 @@ public class Main {
         System.out.println("Start");
 
         //using GrassFieldMap
-        MoveDirection[] directions = OptionsParser.parse(args);
-        IWorldMap map = new GrassField(10);
-        map.place(new Animal(map));
-        map.place(new Animal(map,new Vector2d(1,1)));
-        map.place(new Animal(map,new Vector2d(3,3)));
-        map.place(new Animal(map,new Vector2d(5,5)));
-        System.out.println(map.toString());
-        map.run(directions);
-        System.out.println(map.toString());
+        try {
 
-        //launching window application
-        new MainApplication(args, map);
+            MoveDirection[] directions = OptionsParser.parse(args);
+            GrassField map = new GrassField(1);
+            map.place(new Animal(map));
+            map.place(new Animal(map, new Vector2d(1, 1)));
+            map.place(new Animal(map, new Vector2d(3, 3)));
+            map.place(new Animal(map, new Vector2d(5, 5)));
+            System.out.println(map.toString());
+            map.run(directions);
+//            map.getAnimals().forEach( (k,v)->{
+//                    System.out.println(k + " -> " + v);
+//            });
+            System.out.println(map.toString());
+
+//            launching window application
+//            new MainApplication(args, map);
+
+        }
+        catch (IllegalArgumentException message) {
+            System.out.println("Cannot launch application because: " + message);
+        }
+
         System.out.println("Stop");
-
 
 /*
         //using RectangularMap (without grass)

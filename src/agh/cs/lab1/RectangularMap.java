@@ -1,10 +1,8 @@
 package agh.cs.lab1;
 
-import agh.cs.lab2.MoveDirection;
 import agh.cs.lab2.Vector2d;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Map;
 
 public class RectangularMap extends AbstractWorldMap {
     int height;
@@ -20,8 +18,8 @@ public class RectangularMap extends AbstractWorldMap {
         if(!position.follows(new Vector2d(0, 0)) || !position.precedes(new Vector2d(width,height))){
             return false;
         }
-        for (Animal animal : animals) {
-            if (animal.position.x == position.x && animal.position.y == position.y) {
+        for (Map.Entry<Vector2d, Animal> animal : animals.entrySet()) {
+            if (animal.getKey().equals(position)) {
                 return false;
             }
         }
@@ -30,8 +28,8 @@ public class RectangularMap extends AbstractWorldMap {
 
     @Override
     public boolean isOccupied(Vector2d position) {
-        for (Animal animal : animals) {
-            if (animal.position.equals(position)) {
+        for (Map.Entry<Vector2d, Animal> animal : animals.entrySet()) {
+            if (animal.getKey().equals(position)) {
                 return true;
             }
         }
@@ -39,9 +37,9 @@ public class RectangularMap extends AbstractWorldMap {
     }
 
     public Object objectAt(Vector2d position) {
-        for (Animal animal : animals) {
-            if (position.equals(animal.position)) {
-                return animal;
+        for (Map.Entry<Vector2d, Animal> animal : animals.entrySet()) {
+            if (position.equals(animal.getKey())) {
+                return animal.getValue();
             }
         }
         return null;
@@ -54,5 +52,3 @@ public class RectangularMap extends AbstractWorldMap {
         return visualizer.draw(lowerLeft, upperRight);
     }
 }
-
-

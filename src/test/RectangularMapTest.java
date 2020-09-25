@@ -15,7 +15,7 @@ import java.util.stream.Stream;
 public class RectangularMapTest {
     @Test
     public void place() {
-        IWorldMap map = new RectangularMap(10, 5);
+        AbstractWorldMap map = new RectangularMap(10, 5);
         Animal animal1 = new Animal(map);
         Animal falseAnimal1 = new Animal(map);
         Animal animal2 = new Animal(map,new Vector2d(3,4));

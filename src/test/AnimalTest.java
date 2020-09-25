@@ -1,7 +1,7 @@
 package test;
 
+import agh.cs.lab1.AbstractWorldMap;
 import agh.cs.lab1.Animal;
-import agh.cs.lab1.IWorldMap;
 import agh.cs.lab1.RectangularMap;
 import agh.cs.lab2.MapDirection;
 import agh.cs.lab2.MoveDirection;
@@ -13,7 +13,7 @@ import org.junit.Test;
 public class AnimalTest {
     @Test
     public void move_orientation() {
-        IWorldMap map = new RectangularMap(4,4);
+        AbstractWorldMap map = new RectangularMap(4,4);
         Vector2d position = new Vector2d(2,2);
         Animal animal = new Animal(map, position);
         Assert.assertEquals(MapDirection.NORTH, animal.getDirection());

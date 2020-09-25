@@ -4,14 +4,17 @@ import agh.cs.lab2.Vector2d;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 import static java.lang.StrictMath.sqrt;
 
-public class GrassField extends AbstractWorldMap {
+public class GrassField extends AbstractWorldMap implements IWorldMap{
     int grassNumber;
     List<Grass> grassList = new ArrayList<>();
-
+    public Map<Vector2d, Animal> getAnimals() {
+        return animals;
+    }
     public GrassField (int grassNumber) {
         this.grassNumber = grassNumber;
         int tries = 0;
@@ -33,16 +36,16 @@ public class GrassField extends AbstractWorldMap {
                     placed = true;
                 }
             }
-                if(tries>1000) {
-                    break;
-                }
+            if(tries>1000) {
+                break;
+            }
         }
     }
 
     @Override
     public boolean canMoveTo(Vector2d position) {
-        for (Animal animal : animals) {
-            if (animal.position.equals(position)) {
+        for (Map.Entry<Vector2d, Animal> animal : animals.entrySet()) {
+            if (animal.getKey().equals(position)) {
                 return false;
             }
         }
@@ -50,6 +53,36 @@ public class GrassField extends AbstractWorldMap {
             ((Grass) objectAt(position)).position = randomGrassPosition();
         }
         return true;
+    }
+
+    @Override
+    public boolean isOccupied(Vector2d position) {
+        for (Map.Entry<Vector2d, Animal> animal : animals.entrySet()) {
+            if (animal.getKey().equals(position)) {
+                return true;
+            }
+        }
+        for(Grass grass: grassList) {
+            if (grass.position.equals(position)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public Object objectAt(Vector2d position) {
+        for (Map.Entry<Vector2d, Animal> animal : animals.entrySet()) {
+            if (position.equals(animal.getKey())) {
+                return animal.getValue();
+            }
+        }
+        for (Grass grass: grassList) {
+            if (position.equals(grass.position)){
+                return grass;
+            }
+        }
+        return null;
     }
 
     private Vector2d randomGrassPosition() {
@@ -65,36 +98,6 @@ public class GrassField extends AbstractWorldMap {
                 return position;
             }
             tries ++;
-        }
-        return null;
-    }
-
-    @Override
-    public boolean isOccupied(Vector2d position) {
-        for (Animal animal : animals) {
-            if (animal.position.equals(position)) {
-                return true;
-            }
-        }
-        for(Grass grass: grassList) {
-            if (grass.position.equals(position)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    @Override
-    public Object objectAt(Vector2d position) {
-        for (Animal animal : animals) {
-            if (position.equals(animal.position)) {
-                return animal;
-            }
-        }
-        for (Grass grass: grassList) {
-            if (position.equals(grass.position)){
-                return grass;
-            }
         }
         return null;
     }
